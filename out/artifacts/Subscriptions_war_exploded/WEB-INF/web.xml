@@ -4,16 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <display-name>Hello World</display-name>
-    <description>Hello</description>
+    <display-name>SubsApp</display-name>
+    <description>SubscriptionsApp</description>
 
-    <servlet>
-        <servlet-name>FirstServlet</servlet-name>
-        <servlet-class>FirstServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FirstServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>/log-in</welcome-file>
+    </welcome-file-list>
 
 </web-app>

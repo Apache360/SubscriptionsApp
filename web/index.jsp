@@ -10,17 +10,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My super project!</title>
+  <title>SubsApp</title>
 </head>
 <body>
 <div>
-  <h1>Super app!</h1>
+  <h3>index.jsp was opened</h3>
 </div>
 
-<div>
-  <div>
-    <button onclick="location.href='/home/test'">Test</button>
-  </div>
-</div>
 </body>
 </html>
