@@ -14,7 +14,7 @@
 </head>
 <body>
 <div>
-  <h1>index.jsp was opened</h1>
+  <h3>index.jsp was opened</h3>
 </div>
 
 </body>
