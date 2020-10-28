@@ -6,7 +6,7 @@ public class Publisher {
     private String phoneNumber;
     private String email;
 
-    Publisher(String name, String address, String phoneNumber, String email) {
+    public Publisher(String name, String address, String phoneNumber, String email) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;

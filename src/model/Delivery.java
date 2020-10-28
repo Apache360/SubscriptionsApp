@@ -5,7 +5,7 @@ public class Delivery {
     private String phoneNumber;
     private String email;
 
-    Delivery(String name, String phoneNumber, String email) {
+    public Delivery(String name, String phoneNumber, String email) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;

@@ -7,7 +7,7 @@ public class Order {
     private Publisher publisher;
     static private int currentId=0;
 
-    Order(Customer customer, Delivery delivery, Publisher publisher) {
+    public Order(Customer customer, Delivery delivery, Publisher publisher) {
         currentId++;
         this.id = currentId;
         this.customer = customer;

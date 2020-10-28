@@ -228,7 +228,7 @@ public class AdminServlet extends HttpServlet {
             pw.write("<div>" +
                     "<h2>Блок видалення</h2>"+
                     "<form  method='post' action='delete-servlet'>" +
-                    "<h3>ID</h3><select name='idListToDelete'>");
+                    "<h3>ID</h3><select name='idToDelete'>");
             table.getOrders().forEach(i -> pw.write("<option value='"+i.getId()+"'>" + i.getId() + "</option>"));
             pw.write("</select>" +
                     "<input type='submit' value='DELETE'>" +
