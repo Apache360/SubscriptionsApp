@@ -15,34 +15,48 @@ public class UserServlet extends HttpServlet {
     @Inject
     Table table;
 
+    private String publisherCheckBox;
+    private String customerCheckBox;
+    private String deliveryCheckBox;
+    private String idCheckBox;
+    private String customerPhoneCheckBox;
+    private String customerAddressCheckBox;
+    private String publisherPhoneCheckBox;
+    private String publisherAddressCheckBox;
+    private String publisherEmailCheckBox;
+    private String deliveryPhoneCheckBox;
+    private String deliveryEmailCheckBox;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = response.getWriter();
 
-        String publisherCheckBox = request.getParameter("publisherCheckBox");
-        String customerCheckBox = request.getParameter("customerCheckBox");
-        String deliveryCheckBox = request.getParameter("deliveryCheckBox");
-        String idCheckBox = request.getParameter("idCheckBox");
-        String customerPhoneCheckBox = request.getParameter("customerPhoneCheckBox");
-        String customerAddressCheckBox = request.getParameter("customerAddressCheckBox");
-        String publisherPhoneCheckBox = request.getParameter("publisherPhoneCheckBox");
-        String publisherAddressCheckBox = request.getParameter("publisherAddressCheckBox");
-        String publisherEmailCheckBox = request.getParameter("publisherEmailCheckBox");
-        String deliveryPhoneCheckBox = request.getParameter("deliveryPhoneCheckBox");
-        String deliveryEmailCheckBox = request.getParameter("deliveryEmailCheckBox");
+        publisherCheckBox = request.getParameter("publisherCheckBox");
+        customerCheckBox = request.getParameter("customerCheckBox");
+        deliveryCheckBox = request.getParameter("deliveryCheckBox");
+        idCheckBox = request.getParameter("idCheckBox");
+        customerPhoneCheckBox = request.getParameter("customerPhoneCheckBox");
+        customerAddressCheckBox = request.getParameter("customerAddressCheckBox");
+        publisherPhoneCheckBox = request.getParameter("publisherPhoneCheckBox");
+        publisherAddressCheckBox = request.getParameter("publisherAddressCheckBox");
+        publisherEmailCheckBox = request.getParameter("publisherEmailCheckBox");
+        deliveryPhoneCheckBox = request.getParameter("deliveryPhoneCheckBox");
+        deliveryEmailCheckBox = request.getParameter("deliveryEmailCheckBox");
 
-        String checkBoxValue = " ";
 
-        pw.write("<html>" +
-                "<head><title>User page</title><head>" +
-                "<body>" +
-                "<div align='center'>" +
-                "<h1> Сторінка користувача </h1><hr>" +
-                "</div>" +
-                "<div> " +
-                "<h2>Блок вибірки</h2>" +
+        pw.write("<html><head><title>SubsApp/user</title><head>" +
+                "<body><p align='center'>" +
+                "<h1> Сторінка користувача </h1><hr></p>");
+        select(pw);
+        logOut(pw);
+        pw.write( "</body></html>");
+    }
+
+    private void select(PrintWriter pw){
+        pw.write("<div><h2>Блок вибірки</h2>" +
                 "<form class='section' method='get' action='user-servlet'>");
 
+        String checkBoxValue = " ";
         if (idCheckBox == null) checkBoxValue = " ";
         else checkBoxValue = "checked";
         pw.write("<input type='checkbox' name='idCheckBox' " + checkBoxValue + " > ID ");
@@ -116,15 +130,15 @@ public class UserServlet extends HttpServlet {
 
                 pw.write("</tr>");
             }
-            pw.write(    "</table>");}
-        pw.write( "</form>" +
-                "<hr>" +
-                "</div>" +
-                "<form  method='get' action='logout-servlet'>" +
+            pw.write(    "</table>");
+        }
+        pw.write( "</form><hr></div>");
+    }
+
+    private void logOut(PrintWriter pw){
+        pw.write("<form  method='get' action='logout-servlet'>" +
                 "<input type='submit' value='LOG OUT'>" +
-                "</form>" +
-                "</body>" +
-                "</html>");
+                "</form>");
     }
 }
 

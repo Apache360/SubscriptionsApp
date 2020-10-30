@@ -48,12 +48,10 @@ public class AdminServlet extends HttpServlet {
         deliveryPhoneCheckBox = request.getParameter("deliveryPhoneCheckBox");
         deliveryEmailCheckBox = request.getParameter("deliveryEmailCheckBox");
 
-        pw.write(    "<html>" +
-                "<head><title>Admin page</title><head>" +
+        pw.write(    "<html><head><title>SubsApp/admin</title><head>" +
                 "<body>" +
                 "<div align='center'>" +
                 "<h1> Сторінка адміна </h1>" +
-                "<p>З цієї сторінки ви здатні робити вибірку, редагування, додоавання та видалення</p>" +
                 "</div>" +
                 "<hr>");
         select(pw);
@@ -61,8 +59,7 @@ public class AdminServlet extends HttpServlet {
         update(pw);
         delete(pw);
         logOut(pw);
-        pw.write("</body>" +
-                "</html>");
+        pw.write("</body></html>");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -83,40 +80,97 @@ public class AdminServlet extends HttpServlet {
         deliveryEmailCheckBox = request.getParameter("deliveryEmailCheckBox");
 
         pw.write(    "<html>" +
-                "<head><title>Admin page</title><meta charset='utf-8'><head>" +
+                "<head><title>SubsApp/admin</title><meta charset='utf-8'><head>" +
                 "<body>" +
                 "<div align='center'>" +
-                "<h1> Сторінка адміністратора </h1>" +
-                "</div>" +
+                "<h1> Сторінка адміністратора </h1></div>" +
                 "<hr>");
         select(pw);
         add(pw);
         update(pw);
         delete(pw);
         logOut(pw);
-        pw.write("</body>" +
-                "</html>");
+        pw.write("</body></html>");
     }
 
     private void add(PrintWriter pw) {
         pw.write("<div>" +
-                "<h2>Блок додавання</h2>" +
-                "<form method='post' action='add-servlet'>" +
-                "<p><h3>Видання: </h3>" +
-                "<input type='text' size='15' name='addPublisher'>" +
-                "<p><h3>Одержувач: </h3>" +
-                "<input type='text' size='15' name='addCustomer'>" +
-                "<p><h3>Доставка: </h3>"+
-                "<input type='text' size='15' name='addDelivery'> <br><br>" +
-                "<input type='submit' value='ADD'>" +
+                "<h2><p align='center'>Блок додавання</h2></p>");
+        addOrder(pw);
+        addCustomer(pw);
+        addPublisher(pw);
+        addDelivery(pw);
+        pw.write("<hr></div>");
+    }
+
+    private void addOrder(PrintWriter pw){
+        pw.write("<div><table border='2'><form method='post' action='add-order-servlet'>" +
+                "<tr align='center'><td colspan=\"2\"><b>Додавання нового замовлення</b></td></tr>"+
+                "<tr><td><b>Одержувач</b></td><td><select name='idCustomer'>");
+        for(int i=0; i<table.getCustomers().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getCustomers().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td></tr>" +
+                "<tr><td><b>Видання</b></td>" +
+                "<td><select name='idPublisher'>");
+        for(int i=0; i<table.getPublishers().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getPublishers().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td></tr>" +
+                "<tr><td><b>Доставка</b></td><td><select name='idDelivery'>");
+        for(int i=0; i<table.getDeliveries().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getDeliveries().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td></tr>" +
+                "<tr align='center'><td colspan=\"2\"><input type='submit' value='Додати замовлення'></tr></td></table>" +
                 "</form>" +
-                "</div>" +
-                "<hr>");
+                "</div>");
+    }
+
+    private void addCustomer(PrintWriter pw){
+        pw.write("<div><table border='2'><form method='post' action='add-customer-servlet'>" +
+                "<tr align='center'><td colspan=\"2\"><b>Додавання нового користувача</b></td></tr>"+
+                "<tr><td><b>Нове ім'я одержувача</b></td>"+
+                "<td><input type='text' size='15' name='addCustomerName'></td></tr>"+
+                "<tr><td><b>Новий телефон одержувача</b></td>" +
+                "<td><input type='text' size='15' name='addCustomerPhone'></td></tr>" +
+                "<tr><td><b>Нова адреса одержувача</b></td>" +
+                "<td><input type='text' size='15' name='addCustomerAddress'></td></tr>"+
+                "<tr align='center'><td colspan=\"2\"><input type='submit' value='Додати користувача'></td></tr>" +
+                "</table></form></div>");
+    }
+
+    private void addPublisher(PrintWriter pw){
+        pw.write("<div><table border='2'><form method='post' action='add-publisher-servlet'>" +
+                "<tr align='center'><td colspan=\"2\"><b>Додавання нового видання</b></td></tr>"+
+                "<tr><td><b>Нове ім'я видання</b></td>"+
+                "<td><input type='text' size='15' name='addPublisherName'></td></tr>"+
+                "<tr><td><b>Новий телефон видання</b></td>" +
+                "<td><input type='text' size='15' name='addPublisherPhone'></td></tr>"+
+                "<tr><td><b>Нова адреса офісу видання</b></td>" +
+                "<td><input type='text' size='15' name='addPublisherAddress'></td></tr>" +
+                "<tr><td><b>Нова пошта видання</b></td>" +
+                "<td><input type='text' size='15' name='addPublisherEmail'></td></tr>"+
+                "<tr align='center'><td colspan=\"2\"><input type='submit' value='Додати видання'></td></tr>" +
+                "</table></form></div>");
+    }
+
+    private void addDelivery(PrintWriter pw){
+        pw.write("<div><table border='2'><form method='post' action='add-delivery-servlet'>" +
+                "<tr align='center'><td colspan=\"2\"><b>Додавання нової доставки</b></td></tr>"+
+                "<tr><td><b>Нове ім'я доставки</b></td>"+
+                "<td><input type='text' size='15' name='addDeliveryName'></td></tr>"+
+                "<tr><td><b>Новий телефон доставки</b></td>" +
+                "<td><input type='text' size='15' name='addDeliveryPhone'></td></tr>" +
+                "<tr><td><b>Нова пошта доставки</b></td>" +
+                "<td><input type='text' size='15' name='addDeliveryEmail'></td></tr>"+
+                "<tr align='center'><td colspan=\"2\"><input type='submit' value='Додати доставку'></td></tr>" +
+                "</table></form></div>");
     }
 
     private void select(PrintWriter pw){
         pw.write("<div> " +
-                "<h2>Блок вибірки</h2>" +
+                "<h2><p align='center'>Блок вибірки</p></h2>" +
                 "<form class='section' method='get' action='admin-servlet'>");
         String checkBoxValue = " ";
 
@@ -156,7 +210,7 @@ public class AdminServlet extends HttpServlet {
         else checkBoxValue = "checked";
         pw.write("<input type='checkbox' name='deliveryEmailCheckBox' " + checkBoxValue + "> Пошта доставки");
 
-        pw.write("<br><input type='submit' value='SELECT'><br>");
+        pw.write("<br><input type='submit' value='Показати'><br>");
 
         if (publisherCheckBox != null | customerCheckBox != null | deliveryCheckBox != null | idCheckBox != null){
             pw.write( "<table border='4'>" +
@@ -202,21 +256,38 @@ public class AdminServlet extends HttpServlet {
     private void update(PrintWriter pw){
         if (table.getOrders().size()>0) {
             pw.write("<div>" +
-                    "<h2>Блок редагування</h2>" +
+                    "<h2><p align='center'>Блок редагування</p></h2>" +
                     "<form method='post' action='update-servlet'>" +
                     "<h3>ID</h3><select name='idList'>");
             table.getOrders().forEach(i -> pw.write("<option value='" + i.getId() + "'>" + i.getId() + "</option>"));
             pw.write("</select>" +
-                    "<p><h3>Видання: </h3><div><b>Старе значення</b><b style='margin-left: 50px;'>Нове значення</b><br>" +
-                    "<input type='text' size='15' name='updateEditionOld'>" +
-                    "<input type='text' size='15' name='updateEditionNew' style='margin-left: 20px;'> </div></p>" +
-                    "<p><h3>Одержувач: </h3><div><b>Старе значення</b><b style='margin-left: 50px;'>Нове значення</b><br>" +
-                    "<input type='text' size='15' name='updateDecipientOld'>" +
-                    "<input type='text' size='15' name='updateDecipientNew' style='margin-left: 20px;'></div></p>" +
-                    "<p><h3>Доставка: </h3><div><b>Старе значення</b><b style='margin-left: 50px;'>Нове значення</b><br>" +
-                    "<input type='text' size='15' name='updateDeliveryOld'>" +
-                    "<input type='text' size='15' name='updateDeliveryNew' style='margin-left: 20px;'></div></p>" +
-                    "<input type='submit' value='UPDATE'>" +
+                    "<div><p><h3>Редагування користувача за обраним ID: </h3></p>" +
+                    "<table border='2'><tr align='center'><td><b>Нове ім'я одержувача</b></td>"+
+                    "<td><b>Новий телефон одержувача</b></td>"+
+                    "<td><b>Нова адреса одержувача</b></td></tr>"+
+                    "<tr align='center'><td><input type='text' size='15' name='updateCustomerName'></td>" +
+                    "<td><input type='text' size='15' name='updateCustomerPhone'></td>" +
+                    "<td><input type='text' size='15' name='updateCustomerAddress'></td></tr></table></div>" +
+
+                    "<div><p><h3>Редагування видання за обраним ID: </h3></p>" +
+                    "<table border='2'><tr align='center'><td><b>Нове ім'я видання</b></td>"+
+                    "<td><b>Новий телефон видання</b></td>"+
+                    "<td><b>Нова адреса офісу видання</b></td>"+
+                    "<td><b>Нова пошта видання</b></td></tr>"+
+                    "<tr align='center'><td><input type='text' size='15' name='updatePublisherName'></td>" +
+                    "<td><input type='text' size='15' name='updatePublisherPhone'></td>" +
+                    "<td><input type='text' size='15' name='updatePublisherAddress'></td>" +
+                    "<td><input type='text' size='15' name='updatePublisherEmail'></td></tr></table></div>" +
+
+                    "<div><p><h3>Редагування доставки за обраним ID: </h3></p>" +
+                    "<table border='2'><tr align='center'><td><b>Нове ім'я доставки</b></td>"+
+                    "<td><b>Новий телефон доставки</b></td>"+
+                    "<td><b>Нова пошта доставки</b></td></tr>"+
+                    "<tr align='center'><td><input type='text' size='15' name='updateDeliveryName'></td>" +
+                    "<td><input type='text' size='15' name='updateDeliveryPhone'></td>" +
+                    "<td><input type='text' size='15' name='updateDeliveryEmail'></td></tr></table></div>" +
+
+                    "<input type='submit' value='Змінити'>" +
                     "</form>" +
                     "</div>" +
                     "<hr>");
@@ -226,12 +297,12 @@ public class AdminServlet extends HttpServlet {
     private void delete(PrintWriter pw){
         if (table.getOrders().size()>0){
             pw.write("<div>" +
-                    "<h2>Блок видалення</h2>"+
+                    "<h2><p align='center'>Блок видалення</p></h2>"+
                     "<form  method='post' action='delete-servlet'>" +
                     "<h3>ID</h3><select name='idToDelete'>");
             table.getOrders().forEach(i -> pw.write("<option value='"+i.getId()+"'>" + i.getId() + "</option>"));
             pw.write("</select>" +
-                    "<input type='submit' value='DELETE'>" +
+                    "<input type='submit' value='Видалити'>" +
                     "</form>" +
                     "</div>");
         }
