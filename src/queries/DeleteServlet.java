@@ -24,7 +24,11 @@ public class DeleteServlet extends HttpServlet {
             if (table.getOrders().get(i).getId()==id){table.getOrders().remove(table.getOrders().get(i));}
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-servlet?idCheckBox=on&publisherCheckBox=on&customerCheckBox=on&deliveryCheckBox=on");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/admin-servlet?idCheckBox=on&customerCheckBox=on&publisherCheckBox=on&deliveryCheckBox=on" +
+                        "&customerPhoneCheckBox=on&customerAddressCheckBox=on&publisherPhoneCheckBox=on" +
+                        "&publisherAddressCheckBox=on&publisherEmailCheckBox=on" +
+                        "&deliveryPhoneCheckBox=on&deliveryEmailCheckBox=on");
         dispatcher.forward(request, response);
     }
 }

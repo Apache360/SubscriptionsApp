@@ -49,7 +49,11 @@ public class UpdateServlet extends HttpServlet {
         if (!getStringUTFParameter(request.getParameter("updateDeliveryEmail")).equals("")){
             table.getOrders().get(currentID).getDelivery().setEmail(getStringUTFParameter(request.getParameter("updateDeliveryEmail")));}
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-servlet?idCheckBox=on&publisherCheckBox=on&customerCheckBox=on&deliveryCheckBox=on");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(
+                "/admin-servlet?idCheckBox=on&customerCheckBox=on&publisherCheckBox=on&deliveryCheckBox=on" +
+                        "&customerPhoneCheckBox=on&customerAddressCheckBox=on&publisherPhoneCheckBox=on" +
+                        "&publisherAddressCheckBox=on&publisherEmailCheckBox=on" +
+                        "&deliveryPhoneCheckBox=on&deliveryEmailCheckBox=on");
         dispatcher.forward(request, response);
     }
 
