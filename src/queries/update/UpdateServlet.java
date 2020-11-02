@@ -1,4 +1,4 @@
-package queries;
+package queries.update;
 
 import model.*;
 import javax.inject.Inject;

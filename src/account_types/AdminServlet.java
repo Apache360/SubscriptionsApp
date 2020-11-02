@@ -289,8 +289,34 @@ public class AdminServlet extends HttpServlet {
 
                     "<input type='submit' value='Змінити'>" +
                     "</form>" +
-                    "</div>" +
-                    "<hr>");
+                    "</div>");
+
+            pw.write("<div>" +
+                    "<form method='post' action='update-order-servlet'><h3>ID</h3><select name='idList'>");
+            table.getOrders().forEach(i -> pw.write("<option value='" + i.getId() + "'>" + i.getId() + "</option>"));
+            pw.write("</select>" +
+                    "<table border='2'>" +
+                    "<tr align='center'><td colspan=\"2\"><b>Додавання нового замовлення</b></td></tr>"+
+                    "<tr><td><b>Одержувач</b></td><td><select name='idCustomer'>");
+            for(int i=0; i<table.getCustomers().size();i++){
+                pw.write("<option value='" + i + "'>" + table.getCustomers().get(i).getName() + "</option>");
+            }
+            pw.write("</select></td></tr>" +
+                    "<tr><td><b>Видання</b></td>" +
+                    "<td><select name='idPublisher'>");
+            for(int i=0; i<table.getPublishers().size();i++){
+                pw.write("<option value='" + i + "'>" + table.getPublishers().get(i).getName() + "</option>");
+            }
+            pw.write("</select></td></tr>" +
+                    "<tr><td><b>Доставка</b></td><td><select name='idDelivery'>");
+            for(int i=0; i<table.getDeliveries().size();i++){
+                pw.write("<option value='" + i + "'>" + table.getDeliveries().get(i).getName() + "</option>");
+            }
+            pw.write("</select></td></tr>" +
+                    "<tr align='center'><td colspan=\"2\"><input type='submit' value='Додати замовлення'></tr></td></table>" +
+                    "</form>" +
+                    "</div>");
+                    pw.write("<hr>");
         }
     }
 
