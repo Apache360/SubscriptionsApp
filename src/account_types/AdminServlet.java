@@ -256,68 +256,75 @@ public class AdminServlet extends HttpServlet {
     private void update(PrintWriter pw){
         if (table.getOrders().size()>0) {
             pw.write("<div>" +
-                    "<h2><p align='center'>Блок редагування</p></h2>" +
-                    "<form method='post' action='update-servlet'>" +
-                    "<h3>ID</h3><select name='idList'>");
-            table.getOrders().forEach(i -> pw.write("<option value='" + i.getId() + "'>" + i.getId() + "</option>"));
-            pw.write("</select>" +
-                    "<div><p><h3>Редагування користувача за обраним ID: </h3></p>" +
-                    "<table border='2'><tr align='center'><td><b>Нове ім'я одержувача</b></td>"+
-                    "<td><b>Новий телефон одержувача</b></td>"+
-                    "<td><b>Нова адреса одержувача</b></td></tr>"+
-                    "<tr align='center'><td><input type='text' size='15' name='updateCustomerName'></td>" +
-                    "<td><input type='text' size='15' name='updateCustomerPhone'></td>" +
-                    "<td><input type='text' size='15' name='updateCustomerAddress'></td></tr></table></div>" +
-
-                    "<div><p><h3>Редагування видання за обраним ID: </h3></p>" +
-                    "<table border='2'><tr align='center'><td><b>Нове ім'я видання</b></td>"+
-                    "<td><b>Новий телефон видання</b></td>"+
-                    "<td><b>Нова адреса офісу видання</b></td>"+
-                    "<td><b>Нова пошта видання</b></td></tr>"+
-                    "<tr align='center'><td><input type='text' size='15' name='updatePublisherName'></td>" +
-                    "<td><input type='text' size='15' name='updatePublisherPhone'></td>" +
-                    "<td><input type='text' size='15' name='updatePublisherAddress'></td>" +
-                    "<td><input type='text' size='15' name='updatePublisherEmail'></td></tr></table></div>" +
-
-                    "<div><p><h3>Редагування доставки за обраним ID: </h3></p>" +
-                    "<table border='2'><tr align='center'><td><b>Нове ім'я доставки</b></td>"+
-                    "<td><b>Новий телефон доставки</b></td>"+
-                    "<td><b>Нова пошта доставки</b></td></tr>"+
-                    "<tr align='center'><td><input type='text' size='15' name='updateDeliveryName'></td>" +
-                    "<td><input type='text' size='15' name='updateDeliveryPhone'></td>" +
-                    "<td><input type='text' size='15' name='updateDeliveryEmail'></td></tr></table></div>" +
-
-                    "<input type='submit' value='Змінити'>" +
-                    "</form>" +
-                    "</div>");
-
-            pw.write("<div>" +
-                    "<form method='post' action='update-order-servlet'><h3>ID</h3><select name='idList'>");
-            table.getOrders().forEach(i -> pw.write("<option value='" + i.getId() + "'>" + i.getId() + "</option>"));
-            pw.write("</select>" +
-                    "<table border='2'>" +
-                    "<tr align='center'><td colspan=\"2\"><b>Додавання нового замовлення</b></td></tr>"+
-                    "<tr><td><b>Одержувач</b></td><td><select name='idCustomer'>");
-            for(int i=0; i<table.getCustomers().size();i++){
-                pw.write("<option value='" + i + "'>" + table.getCustomers().get(i).getName() + "</option>");
-            }
-            pw.write("</select></td></tr>" +
-                    "<tr><td><b>Видання</b></td>" +
-                    "<td><select name='idPublisher'>");
-            for(int i=0; i<table.getPublishers().size();i++){
-                pw.write("<option value='" + i + "'>" + table.getPublishers().get(i).getName() + "</option>");
-            }
-            pw.write("</select></td></tr>" +
-                    "<tr><td><b>Доставка</b></td><td><select name='idDelivery'>");
-            for(int i=0; i<table.getDeliveries().size();i++){
-                pw.write("<option value='" + i + "'>" + table.getDeliveries().get(i).getName() + "</option>");
-            }
-            pw.write("</select></td></tr>" +
-                    "<tr align='center'><td colspan=\"2\"><input type='submit' value='Додати замовлення'></tr></td></table>" +
-                    "</form>" +
-                    "</div>");
-                    pw.write("<hr>");
+                    "<h2><p align='center'>Блок редагування</p></h2>");
+            updateItem(pw);
+            updateOrder(pw);
+            pw.write("</div><hr>");
         }
+    }
+
+    private void updateItem(PrintWriter pw){
+        pw.write("<div><form method='post' action='update-item-servlet'>" +
+                "Оберіть ID: <select name='idList'>");
+        table.getOrders().forEach(i -> pw.write("<option value='" + i.getId() + "'>" + i.getId() + "</option>"));
+        pw.write("</select>" +
+                "<div><p><h3>Редагування користувача за обраним ID: </h3></p>" +
+                "<table border='2'><tr align='center'><td><b>Нове ім'я одержувача</b></td>"+
+                "<td><b>Новий телефон одержувача</b></td>"+
+                "<td><b>Нова адреса одержувача</b></td></tr>"+
+                "<tr align='center'><td><input type='text' size='15' name='updateCustomerName'></td>" +
+                "<td><input type='text' size='15' name='updateCustomerPhone'></td>" +
+                "<td><input type='text' size='15' name='updateCustomerAddress'></td></tr></table></div>" +
+
+                "<div><p><h3>Редагування видання за обраним ID: </h3></p>" +
+                "<table border='2'><tr align='center'><td><b>Нове ім'я видання</b></td>"+
+                "<td><b>Новий телефон видання</b></td>"+
+                "<td><b>Нова адреса офісу видання</b></td>"+
+                "<td><b>Нова пошта видання</b></td></tr>"+
+                "<tr align='center'><td><input type='text' size='15' name='updatePublisherName'></td>" +
+                "<td><input type='text' size='15' name='updatePublisherPhone'></td>" +
+                "<td><input type='text' size='15' name='updatePublisherAddress'></td>" +
+                "<td><input type='text' size='15' name='updatePublisherEmail'></td></tr></table></div>" +
+
+                "<div><p><h3>Редагування доставки за обраним ID: </h3></p>" +
+                "<table border='2'><tr align='center'><td><b>Нове ім'я доставки</b></td>"+
+                "<td><b>Новий телефон доставки</b></td>"+
+                "<td><b>Нова пошта доставки</b></td></tr>"+
+                "<tr align='center'><td><input type='text' size='15' name='updateDeliveryName'></td>" +
+                "<td><input type='text' size='15' name='updateDeliveryPhone'></td>" +
+                "<td><input type='text' size='15' name='updateDeliveryEmail'></td></tr></table></div>" +
+
+                "<input type='submit' value='Змінити'>" +
+                "</form>" +
+                "</div>");
+    }
+
+    private void updateOrder(PrintWriter pw){
+        pw.write("<div>" +
+                "<form method='post' action='update-order-servlet'>" +
+                "Оберіть ID: <select name='idList'>");
+        table.getOrders().forEach(i -> pw.write("<option value='" + i.getId() + "'>" + i.getId() + "</option>"));
+        pw.write("</select>" +
+                "<table border='2'>" +
+                "<tr align='center'><td colspan=\"2\"><b>Редагування замовлення за обраним ID</b></td></tr>"+
+                "<tr><td><b>Одержувач</b></td><td><select name='idCustomer'>");
+        for(int i=0; i<table.getCustomers().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getCustomers().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td></tr>" +
+                "<tr><td><b>Видання</b></td>" +
+                "<td><select name='idPublisher'>");
+        for(int i=0; i<table.getPublishers().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getPublishers().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td></tr>" +
+                "<tr><td><b>Доставка</b></td><td><select name='idDelivery'>");
+        for(int i=0; i<table.getDeliveries().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getDeliveries().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td></tr>" +
+                "<tr align='center'><td colspan=\"2\"><input type='submit' value='Змінити замовлення'></tr></td></table>" +
+                "</form></div>");
     }
 
     private void delete(PrintWriter pw){

@@ -11,15 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@WebServlet("/update-servlet")
-public class UpdateServlet extends HttpServlet {
+@WebServlet("/update-item-servlet")
+public class UpdateItemServlet extends HttpServlet {
     @Inject
     Table table;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8;");
-        String str = request.getParameter("idList");
-        System.out.println(str);
         int id = Integer.parseInt(request.getParameter("idList"));
         int currentID=0;
         for (int i =0;i<table.getOrders().size();i++){

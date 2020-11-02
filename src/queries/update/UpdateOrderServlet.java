@@ -23,11 +23,12 @@ public class UpdateOrderServlet extends HttpServlet {
         String str = request.getParameter("idList");
         System.out.println(str);
 
-        /*table.getOrders().add(new Order(
-                table.getCustomers().get(Integer.parseInt(getStringUTFParameter(request.getParameter("idCustomer")))),
-                table.getDeliveries().get(Integer.parseInt(getStringUTFParameter(request.getParameter("idDelivery")))),
-                table.getPublishers().get(Integer.parseInt(getStringUTFParameter(request.getParameter("idPublisher"))))
-        ));*/
+        table.getOrders().get(Integer.parseInt(request.getParameter("idList")))
+                .setCustomer(table.getCustomers().get(Integer.parseInt(request.getParameter("idCustomer"))));
+        table.getOrders().get(Integer.parseInt(request.getParameter("idList")))
+                .setPublisher(table.getPublishers().get(Integer.parseInt(request.getParameter("idPublisher"))));
+        table.getOrders().get(Integer.parseInt(request.getParameter("idList")))
+                .setDelivery(table.getDeliveries().get(Integer.parseInt(request.getParameter("idDelivery"))));
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/admin-servlet?idCheckBox=on&customerCheckBox=on&publisherCheckBox=on&deliveryCheckBox=on" +
