@@ -1,6 +1,7 @@
-package queries;
+package queries.delete;
 
-import model.*;
+import model.Customer;
+import model.Table;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -10,9 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
-@WebServlet("/delete-servlet")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/delete-customer-servlet")
+public class DeleteCustomerServlet extends HttpServlet {
 
     @Inject
     Table table;
@@ -20,8 +22,8 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8;");
         int id = Integer.parseInt(request.getParameter("idToDelete"));
-        for (int i =0;i<table.getOrders().size();i++){
-            if (table.getOrders().get(i).getId()==id){table.getOrders().remove(table.getOrders().get(i));}
+        for (int i =0;i<table.getCustomers().size();i++){
+            if (i==id){table.getCustomers().remove(table.getCustomers().get(i));}
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(
@@ -32,4 +34,5 @@ public class DeleteServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 }
+
 

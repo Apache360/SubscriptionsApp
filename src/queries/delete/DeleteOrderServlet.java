@@ -1,7 +1,6 @@
-package queries.update;
+package queries.delete;
 
-import model.Order;
-import model.Table;
+import model.*;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -11,22 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
-@WebServlet("/update-order-servlet")
-public class UpdateOrderServlet extends HttpServlet {
+@WebServlet("/delete-order-servlet")
+public class DeleteOrderServlet extends HttpServlet {
 
     @Inject
     Table table;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        table.getOrders().get(Integer.parseInt(request.getParameter("idList")))
-                .setCustomer(table.getCustomers().get(Integer.parseInt(request.getParameter("idCustomer"))));
-        table.getOrders().get(Integer.parseInt(request.getParameter("idList")))
-                .setPublisher(table.getPublishers().get(Integer.parseInt(request.getParameter("idPublisher"))));
-        table.getOrders().get(Integer.parseInt(request.getParameter("idList")))
-                .setDelivery(table.getDeliveries().get(Integer.parseInt(request.getParameter("idDelivery"))));
+        response.setContentType("text/html;charset=UTF-8;");
+        int id = Integer.parseInt(request.getParameter("idToDelete"));
+        for (int i =0;i<table.getOrders().size();i++){
+            if (table.getOrders().get(i).getId()==id){table.getOrders().remove(table.getOrders().get(i));}
+        }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(
                 "/admin-servlet?idCheckBox=on&customerCheckBox=on&publisherCheckBox=on&deliveryCheckBox=on" +
@@ -36,5 +32,4 @@ public class UpdateOrderServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 }
-
 

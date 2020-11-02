@@ -169,6 +169,7 @@ public class AdminServlet extends HttpServlet {
     }
 
     private void select(PrintWriter pw){
+
         pw.write("<div> " +
                 "<h2><p align='center'>Блок вибірки</p></h2>" +
                 "<form class='section' method='get' action='admin-servlet'>");
@@ -259,7 +260,7 @@ public class AdminServlet extends HttpServlet {
                     "<h2><p align='center'>Блок редагування</p></h2>");
             updateItem(pw);
             updateOrder(pw);
-            pw.write("</div><hr>");
+            pw.write("<hr></div>");
         }
     }
 
@@ -328,22 +329,58 @@ public class AdminServlet extends HttpServlet {
     }
 
     private void delete(PrintWriter pw){
-        if (table.getOrders().size()>0){
-            pw.write("<div>" +
-                    "<h2><p align='center'>Блок видалення</p></h2>"+
-                    "<form  method='post' action='delete-servlet'>" +
-                    "<h3>ID</h3><select name='idToDelete'>");
-            table.getOrders().forEach(i -> pw.write("<option value='"+i.getId()+"'>" + i.getId() + "</option>"));
-            pw.write("</select>" +
-                    "<input type='submit' value='Видалити'>" +
-                    "</form>" +
-                    "</div>");
+        pw.write("<div><h2><p align='center'>Блок видалення</p></h2><table border='2'>");
+        if(table.getOrders().size()>0)deleteOrder(pw);
+        if(table.getCustomers().size()>0)deleteCustomer(pw);
+        if(table.getPublishers().size()>0)deletePublisher(pw);
+        if(table.getDeliveries().size()>0)deleteDelivery(pw);
+        pw.write("</table></div><hr>");
+    }
+
+    private void deleteOrder(PrintWriter pw){
+        pw.write("<form  method='post' action='delete-order-servlet'>" +
+                "<tr><td><b>ID</b></td>" +
+                "<td><select name='idToDelete'>");
+        table.getOrders().forEach(i -> pw.write("<option value='" + i.getId() + "'>" + i.getId() + "</option>"));
+        pw.write("</select></td>" +
+                "<td><input type='submit' value='Видалити'></td></tr></form>");
+    }
+
+    private void deleteCustomer(PrintWriter pw){
+        pw.write("<form  method='post' action='delete-customer-servlet'>" +
+                "<tr><td><b>Одержувач</b></td>" +
+                "<td><select name='idToDelete'>");
+        for(int i=0; i<table.getCustomers().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getCustomers().get(i).getName() + "</option>");
         }
+        pw.write("</select></td>" +
+                "<td><input type='submit' value='Видалити'></td></tr></form>");
+    }
+
+    private void deletePublisher(PrintWriter pw) {
+        pw.write("<form  method='post' action='delete-publisher-servlet'>" +
+                "<tr><td><b>Видання</b></td>" +
+                "<td><select name='idToDelete'>");
+        for(int i=0; i<table.getPublishers().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getPublishers().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td>" +
+                "<td><input type='submit' value='Видалити'></td></tr></form>");
+    }
+
+    private void deleteDelivery(PrintWriter pw) {
+        pw.write("<form  method='post' action='delete-delivery-servlet'>" +
+                "<tr><td><b>Доставка</b></td>" +
+                "<td><select name='idToDelete'>");
+        for(int i=0; i<table.getDeliveries().size();i++){
+            pw.write("<option value='" + i + "'>" + table.getDeliveries().get(i).getName() + "</option>");
+        }
+        pw.write("</select></td>" +
+                "<td><input type='submit' value='Видалити'></td></tr></form>");
     }
 
     private void logOut(PrintWriter pw){
-        pw.write("<br><hr><br>" +
-                "<form  method='get' action='logout-servlet'>" +
+        pw.write("<form  method='get' action='logout-servlet'>" +
                 "<input type='submit' value='LOG OUT'>" +
                 "</form>");
     }
