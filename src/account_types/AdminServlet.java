@@ -262,6 +262,8 @@ public class AdminServlet extends HttpServlet {
             updateOrder(pw);
             pw.write("<hr></div>");
         }
+
+
     }
 
     private void updateItem(PrintWriter pw){
@@ -381,7 +383,7 @@ public class AdminServlet extends HttpServlet {
 
     private void logOut(PrintWriter pw){
         pw.write("<form  method='get' action='logout-servlet'>" +
-                "<input type='submit' value='LOG OUT'>" +
+                "<input type='submit' value='Вийти'>" +
                 "</form>");
     }
 }

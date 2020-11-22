@@ -29,12 +29,11 @@ public class LogInServlet extends HttpServlet {
                     "<html>" +
                         "<head><title>Log in</title></head>" +
                         "<body align='center'>" +
+                        "<h1> Авторизація </h1>" +
                         "<form action='authentication' method='get'>" +
                         "<input type='text' name='login'> Логин <br>" +
                         "<input type='password' name='password'> Пароль <br>" +
-                        "<input type='submit'>" +
-                        "</form>" +
-                        "</body>" +
+                        "<input type='submit' value='Увійти'></form></body>" +
                         "</html>"
         );
     }
