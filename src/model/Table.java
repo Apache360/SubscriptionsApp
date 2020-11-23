@@ -42,6 +42,7 @@ public class Table implements Serializable {
         orders.add(new Order(customers.get(4),deliveries.get(0),publishers.get(1)));
         orders.add(new Order(customers.get(4),deliveries.get(1),publishers.get(0)));
     }
+
     public List<Publisher> getPublishers() {
         return publishers;
     }

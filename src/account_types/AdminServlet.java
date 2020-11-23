@@ -28,11 +28,10 @@ public class AdminServlet extends HttpServlet {
     private String deliveryPhoneCheckBox ;
     private String deliveryEmailCheckBox ;
     private HttpSession session;
-    private PrintWriter pw;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8;");
-        pw =  response.getWriter();
+        PrintWriter pw =  response.getWriter();
         session = request.getSession();
         session.setAttribute("table", table);
 
@@ -64,7 +63,7 @@ public class AdminServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        pw =  response.getWriter();
+        PrintWriter pw = response.getWriter();
         session = request.getSession();
         session.setAttribute("table", table);
         idCheckBox = request.getParameter("idCheckBox");

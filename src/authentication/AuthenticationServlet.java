@@ -14,9 +14,8 @@ public class AuthenticationServlet extends HttpServlet {
         Cookie cookiePass = new Cookie("password", request.getParameter("password"));
         boolean undefined=true;
         cookiePass.setMaxAge(30 * 60);
-        HttpSession session = request.getSession();
-        session.setAttribute("cookieLogin", cookieLogin);
-        session.setAttribute("cookiePass", cookiePass);
+        request.getSession().setAttribute("cookieLogin", cookieLogin);
+        request.getSession().setAttribute("cookiePass", cookiePass);
         response.addCookie(cookieLogin);
         response.addCookie(cookiePass);
 
